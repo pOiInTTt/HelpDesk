@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Заявки</title>
+</head>
+<body>
+  <h1>Новая заявка</h1>
+
+  <p>Ваше имя:<br><input id="name"></p>
+  <p>Почта:<br><input id="email" type="email"></p>
+  <p>Телефон:<br><input id="phone"></p>
+  <p>Категория:<br><select id="category"></select></p>
+  <p>Приоритет:<br><select id="priority"></select></p>
+  <p>Тема:<br><input id="title"></p>
+  <p>Описание:<br><textarea id="desc" rows="4" cols="40"></textarea></p>
+
+  <button id="send">Отправить заявку</button>
+  <p id="result"></p>
+
+  <hr>
+
+  <h1>Статус заявки</h1>
+  <p>Номер: <input id="num" type="number" min="1" style="width:80px"></p>
+  <button id="btn">Узнать статус</button>
+  <p id="status"></p>
+</body>
+</html>
