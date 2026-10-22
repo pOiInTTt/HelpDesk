@@ -1,0 +1,40 @@
+@host = http://localhost:5032
+GET {{host}}/api/requests?status=В работе
+
+GET {{host}}/api/requests?categoryId=3
+
+GET {{host}}/api/requests?status=В работе&priorityId=2
+
+GET {{host}}/api/requests?status=Новая&priorityId=1
+
+GET {{host}}/api/requests?sort=id&order=asc
+
+GET {{host}}/api/requests?sort=id&order=desc
+
+GET {{host}}/api/requests?sort=priority&order=desc
+
+GET {{host}}/api/requests?sort=id&order=asc&page=1&pageSize=2
+
+GET {{host}}/api/requests?sort=id&order=asc&page=2&pageSize=2
+
+GET {{host}}/api/requests?sort=id&order=asc&page=3&pageSize=2
+
+GET {{host}}/api/requests?status=Неизвестный
+
+GET {{host}}/api/requests?sort=abc
+
+GET {{host}}/api/requests?order=up
+
+GET {{host}}/api/requests?page=0
+
+GET {{host}}/api/requests?page=abc
+
+GET {{host}}/api/requests?pageSize=0
+
+GET {{host}}/api/requests?priorityId=-1
+
+GET {{host}}/api/requests?pageSize=100
+
+GET {{host}}/api/requests?pageSize=101
+
+GET {{host}}/api/requests/999

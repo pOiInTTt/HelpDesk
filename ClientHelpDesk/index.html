@@ -24,5 +24,27 @@
   <p>Номер: <input id="num" type="number" min="1" style="width:80px"></p>
   <button id="btn">Узнать статус</button>
   <p id="status"></p>
+
+  <hr>
+
+
+  <h1>Панель сотрудника</h1>
+  <p>Номер заявки: <input id="emp-req-id" type="number" min="1" style="width:80px"></p>
+  
+  <p>Назначить исполнителя (ID):<br>
+    <input id="emp-id" type="number" min="1" style="width:80px">
+    <button id="btn-assign">Назначить</button>
+  </p>
+  
+  <p>Изменить статус:<br>
+    <select id="new-status">
+      <option value="В работе">В работе</option>
+      <option value="Закрыта">Закрыта</option>
+    </select>
+    <button id="btn-status">Сменить статус</button>
+  </p>
+  <p id="emp-result"></p>
+
+  <script src="app.js"></script>
 </body>
 </html>
