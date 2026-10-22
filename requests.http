@@ -1,40 +1,61 @@
 @host = http://localhost:5032
+
+### T01. Один фильтр: status=В работе
 GET {{host}}/api/requests?status=В работе
 
+### T02. Один фильтр: categoryId=3
 GET {{host}}/api/requests?categoryId=3
 
+### T03. Два фильтра: status=В работе и priorityId=2
 GET {{host}}/api/requests?status=В работе&priorityId=2
 
+### T04. Два фильтра без совпадений: status=Новая и priorityId=1
 GET {{host}}/api/requests?status=Новая&priorityId=1
 
+### T05. Сортировка по возрастанию
 GET {{host}}/api/requests?sort=id&order=asc
 
+### T06. Сортировка по убыванию
 GET {{host}}/api/requests?sort=id&order=desc
 
+### T07. Сортировка по приоритету, убывание
 GET {{host}}/api/requests?sort=priority&order=desc
 
+### T08. Первая страница: page=1, pageSize=2
 GET {{host}}/api/requests?sort=id&order=asc&page=1&pageSize=2
 
+### T09. Вторая страница: page=2, pageSize=2
 GET {{host}}/api/requests?sort=id&order=asc&page=2&pageSize=2
 
+### T10. Страница за пределами списка: page=3
 GET {{host}}/api/requests?sort=id&order=asc&page=3&pageSize=2
 
+### T11. Недопустимый статус
 GET {{host}}/api/requests?status=Неизвестный
 
+### T12. Недопустимое поле сортировки
 GET {{host}}/api/requests?sort=abc
 
+### T13. Недопустимое направление сортировки
 GET {{host}}/api/requests?order=up
 
+### T14. Недопустимая страница: page=0
 GET {{host}}/api/requests?page=0
 
+### T15. Недопустимый тип: page=abc
 GET {{host}}/api/requests?page=abc
 
+### T16. Недопустимый размер страницы: pageSize=0
 GET {{host}}/api/requests?pageSize=0
 
+### T17. Недопустимый фильтр: priorityId=-1
 GET {{host}}/api/requests?priorityId=-1
 
+### T18. Максимальный размер страницы: pageSize=100
 GET {{host}}/api/requests?pageSize=100
 
+### T19. Превышение максимума: pageSize=101
 GET {{host}}/api/requests?pageSize=101
 
+### T20. Ошибка не раскрывает детали, заявка не найдена
 GET {{host}}/api/requests/999
