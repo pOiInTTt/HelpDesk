@@ -59,3 +59,183 @@ GET {{host}}/api/requests?pageSize=101
 
 ### T20. Ошибка не раскрывает детали, заявка не найдена
 GET {{host}}/api/requests/999
+
+### C01. Комментарии заявки №1 (3 штуки, от старых к новым)
+GET {{host}}/api/requests/1/comments
+
+### C02. Заявка без комментариев
+GET {{host}}/api/requests/2/comments
+
+### C03. Заявка не существует
+GET {{host}}/api/requests/999/comments
+
+### E01. Изменить свой комментарий (автор 1)
+PUT {{host}}/api/requests/1/comments/1
+Content-Type: application/json
+X-Employee-Id: 1
+
+{ "text": "Заменил картридж, печать работает" }
+
+### E02. Без авторизации
+PUT {{host}}/api/requests/1/comments/1
+Content-Type: application/json
+
+{ "text": "Тест" }
+
+### E03. Пустой текст
+PUT {{host}}/api/requests/1/comments/1
+Content-Type: application/json
+X-Employee-Id: 1
+
+{ "text": "   " }
+
+### E04. Чужой комментарий (сотрудник 2 меняет комментарий автора 1)
+PUT {{host}}/api/requests/1/comments/1
+Content-Type: application/json
+X-Employee-Id: 2
+
+{ "text": "Тест" }
+
+### E05. Заявка не существует
+PUT {{host}}/api/requests/999/comments/1
+Content-Type: application/json
+X-Employee-Id: 1
+
+{ "text": "Тест" }
+
+### E06. Комментарий не существует
+PUT {{host}}/api/requests/1/comments/999
+Content-Type: application/json
+X-Employee-Id: 1
+
+{ "text": "Тест" }
+
+### E07. Комментарий №2 принадлежит заявке №3, а не №1
+PUT {{host}}/api/requests/1/comments/2
+Content-Type: application/json
+X-Employee-Id: 2
+
+{ "text": "Тест" }
+
+### E08. Создать комментарий (автор 2)
+POST {{host}}/api/requests/1/comments
+Content-Type: application/json
+X-Employee-Id: 2
+
+{ "text": "Новый комментарий", "authorId": 1 }
+
+### E09. Удалить созданный комментарий (подставьте его номер)
+DELETE {{host}}/api/requests/1/comments/5
+X-Employee-Id: 2
+
+### E10. Удалить его повторно
+DELETE {{host}}/api/requests/1/comments/5
+X-Employee-Id: 2
+
+### E11. Удалить чужой комментарий
+DELETE {{host}}/api/requests/1/comments/1
+X-Employee-Id: 2
+
+### E12. Удалить комментарий через чужую заявку
+DELETE {{host}}/api/requests/1/comments/2
+X-Employee-Id: 2
+
+### E13. Комментарий №2 остался на месте
+GET {{host}}/api/requests/3/comments
+### F01. PNG
+POST {{host}}/api/requests/1/attachments
+Content-Type: multipart/form-data; boundary=----B
+
+------B
+Content-Disposition: form-data; name="file"; filename="screen.png"
+Content-Type: image/png
+
+< ./test-files/screen.png
+------B--
+
+### F02. PDF
+POST {{host}}/api/requests/1/attachments
+Content-Type: multipart/form-data; boundary=----B
+
+------B
+Content-Disposition: form-data; name="file"; filename="doc.pdf"
+Content-Type: application/pdf
+
+< ./test-files/doc.pdf
+------B--
+
+### F03. JPEG
+POST {{host}}/api/requests/1/attachments
+Content-Type: multipart/form-data; boundary=----B
+
+------B
+Content-Disposition: form-data; name="file"; filename="photo.jpg"
+Content-Type: image/jpeg
+
+< ./test-files/photo.jpg
+------B--
+
+### F04. Недопустимый тип (txt)
+POST {{host}}/api/requests/1/attachments
+Content-Type: multipart/form-data; boundary=----B
+
+------B
+Content-Disposition: form-data; name="file"; filename="notes.txt"
+Content-Type: text/plain
+
+< ./test-files/notes.txt
+------B--
+
+### F05. Подделка: текст с расширением png
+POST {{host}}/api/requests/1/attachments
+Content-Type: multipart/form-data; boundary=----B
+
+------B
+Content-Disposition: form-data; name="file"; filename="fake.png"
+Content-Type: image/png
+
+< ./test-files/fake.png
+------B--
+
+### F06. Больше 5 МБ
+POST {{host}}/api/requests/1/attachments
+Content-Type: multipart/form-data; boundary=----B
+
+------B
+Content-Disposition: form-data; name="file"; filename="big.pdf"
+Content-Type: application/pdf
+
+< ./test-files/big.pdf
+------B--
+
+### F07. Заявки не существует
+POST {{host}}/api/requests/999/attachments
+Content-Type: multipart/form-data; boundary=----B
+
+------B
+Content-Disposition: form-data; name="file"; filename="screen.png"
+Content-Type: image/png
+
+< ./test-files/screen.png
+------B--
+
+### F08. Без файла
+POST {{host}}/api/requests/1/attachments
+Content-Type: multipart/form-data; boundary=----B
+
+------B
+Content-Disposition: form-data; name="comment"
+
+text
+------B--
+
+### F09. Опасное имя файла
+POST {{host}}/api/requests/1/attachments
+Content-Type: multipart/form-data; boundary=----B
+
+------B
+Content-Disposition: form-data; name="file"; filename="..\..\evil.png"
+Content-Type: image/png
+
+< ./test-files/screen.png
+------B--
